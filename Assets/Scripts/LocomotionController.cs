@@ -43,7 +43,6 @@ public class LocomotionController : MonoBehaviour
     {
         InputDevice device = InputDevices.GetDeviceAtXRNode(inputSource);
         device.TryGetFeatureValue(CommonUsages.primary2DAxis, out _inputAxis);
-
     }
 
     private void TeleportMovement()
@@ -55,6 +54,8 @@ public class LocomotionController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        CapsuleFollow();
+
         if (!teleport)
         {
             MoveCharacter();
@@ -63,7 +64,6 @@ public class LocomotionController : MonoBehaviour
 
     private void MoveCharacter()
     {
-        CapsuleFollow();
         Quaternion headYaw = Quaternion.Euler(0, _xrRig.cameraGameObject.transform.eulerAngles.y, 0);
         Vector3 direction = headYaw * new Vector3(_inputAxis.x, 0, _inputAxis.y);
         _characterController.Move(direction * (speed * Time.deltaTime));

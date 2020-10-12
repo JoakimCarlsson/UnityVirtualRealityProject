@@ -38,7 +38,11 @@ public class Projectile : MonoBehaviour
         else
             StartCoroutine(DestroyTimer());
 
-        //different impacts for different 'materials' using impactPrefabs later.
+        if (other.gameObject.CompareTag("Target"))
+        {
+            Target target = other.gameObject.GetComponent<Target>();
+            target.isHit = true;
+        }
     }
 
     private IEnumerator DestroyTimer()
